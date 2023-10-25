@@ -35,7 +35,7 @@ server:
   dockerHubUrl: https://hub.docker.com
 
 client:
-  title: KubeSphere
+  title: KuberixEnterprise
   description: ""
   encryptKey: kubesphere
 
