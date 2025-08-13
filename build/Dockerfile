@@ -16,7 +16,7 @@ RUN npm install yarn@${YARN_VERSION}
 
 # If you have trouble downloading the yarn binary, try the following:
 # RUN yarn config set registry https://registry.npmmirror.com
-ENV NODE_TLS_REJECT_UNAUTHORIZED 0
+RUN yarn config set strict-ssl false -g
 RUN yarn && yarn build
 
 # Copy compiled files
