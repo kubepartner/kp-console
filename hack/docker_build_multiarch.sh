@@ -4,7 +4,7 @@ set -ex
 set -o pipefail
 
 TAG=${TAG:-latest}
-REPO=${REPO:-kubespheredev}
+REPO=${REPO:-kubepartner}
 PUSH=${PUSH:-}
 
 # support other container tools. e.g. podman
@@ -20,11 +20,11 @@ fi
 PLATFORMS=linux/amd64,linux/arm64
 
 # build the preimage
-docker buildx build -f build/Dockerfile --target builder --load -t ks-console-pre:"${TAG}" .
+docker buildx build -f build/Dockerfile --target builder --load -t kp-console-pre:"${TAG}" .
 
 # create preimage container
 ${CONTAINER_CLI} create \
-  --name predbuild ks-console-pre:"${TAG}"
+  --name predbuild kp-console-pre:"${TAG}"
 
 # copy file from preimage container:./out/ ./out/
 ${CONTAINER_CLI} cp \
@@ -35,10 +35,10 @@ ${CONTAINER_CLI} ${CONTAINER_BUILDER} \
   --platform ${PLATFORMS} \
   ${PUSH} \
   -f build/Dockerfile.dapper \
-  -t "${REPO}"/ks-console:"${TAG}" .
+  -t "${REPO}"/kp-console:"${TAG}" .
 
 # delete preimage
-docker rmi ks-console-pre:"${TAG}" -f
+docker rmi kp-console-pre:"${TAG}" -f
 
 # delete prebuild container
 docker rm predbuild
